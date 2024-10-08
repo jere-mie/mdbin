@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div id="content">
+    {{ Content | safe }}
+</div>
+
+<link rel="stylesheet" href="/static/highlight.js.min.css">
+<script src="/static/highlight.min.js"></script>
+
+<script>
+    hljs.highlightAll();
+</script>
+
+{% endblock %}

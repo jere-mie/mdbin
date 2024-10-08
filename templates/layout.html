@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>mdbin</title>
+
+    <meta name="description" content="mdbin is a free and open source platform for easily sharing markdown snippets">
+    <meta name="keywords" content="markdown, mdbin, open source, free, code sharing">
+    <meta name="author" content="Jeremie Bornais">
+    <meta name="title" content="mdbin - Free and Open Source Markdown Snippet Sharing" >
+
+    <link rel="stylesheet" href="/static/pico.min.css">
+    <script src="/static/htmx.min.js"></script>
+</head>
+<body class="container" hx-boost="true">
+    <nav>
+        <ul>
+          <li><strong><a href="/" class="contrast">mdbin</a></strong></li>
+        </ul>
+        <ul>
+          <li><a href="/policy">Acceptable Use Policy</a></li>
+          <li><a href="/abuse">Report Abuse</a></li>
+        </ul>
+      </nav>
+    <br><br>
+    {% block content %}
+    {% endblock %}
+</body>
+</html>
