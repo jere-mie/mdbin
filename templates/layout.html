@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,23 +9,35 @@
     <meta name="description" content="mdbin is a free and open source platform for easily sharing markdown snippets">
     <meta name="keywords" content="markdown, mdbin, open source, free, code sharing">
     <meta name="author" content="Jeremie Bornais">
-    <meta name="title" content="mdbin - Free and Open Source Markdown Snippet Sharing" >
+    <meta name="title" content="mdbin - Free and Open Source Markdown Snippet Sharing">
 
+    <!-- base styles -->
     <link rel="stylesheet" href="/static/pico.min.css">
-    <script src="/static/htmx.min.js"></script>
+
+    <!-- codemirror stuff for markdown editor -->
+    <link rel="stylesheet" href="/static/codemirror.css">
+    <link rel="stylesheet" href="/static/dracula.css">
+    <script src="/static/codemirror.js"></script>
+    <script src="/static/markdown.js"></script>
+
+    <!-- highlight.js stuff for syntax highlighting -->
+    <link rel="stylesheet" href="/static/highlight.js.default.min.css">
+    <script src="/static/highlight.min.js"></script>
 </head>
-<body class="container" hx-boost="true">
+
+<body class="container">
     <nav>
         <ul>
-          <li><strong><a href="/" class="contrast">mdbin</a></strong></li>
+            <li><strong><a href="/" class="contrast">mdbin</a></strong></li>
         </ul>
         <ul>
-          <li><a href="/policy">Acceptable Use Policy</a></li>
-          <li><a href="/abuse">Report Abuse</a></li>
+            <li><a href="/policy">Acceptable Use Policy</a></li>
+            <li><a href="/abuse">Report Abuse</a></li>
         </ul>
-      </nav>
+    </nav>
     <br><br>
     {% block content %}
     {% endblock %}
 </body>
+
 </html>

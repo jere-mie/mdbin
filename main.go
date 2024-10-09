@@ -21,7 +21,9 @@ import (
 	"bytes"
 
 	"github.com/joho/godotenv"
+	"github.com/microcosm-cc/bluemonday"
 	"github.com/yuin/goldmark"
+	"github.com/yuin/goldmark/renderer/html"
 )
 
 //go:embed templates
@@ -56,6 +58,7 @@ func main() {
 
 	// embed /templates directory into binary
 	engine := django.NewPathForwardingFileSystem(http.FS(TemplateAssets), "/templates", ".html")
+	policy := bluemonday.UGCPolicy()
 	app := fiber.New(fiber.Config{
 		Views:             engine,
 		PassLocalsToViews: true,
@@ -119,13 +122,27 @@ func main() {
 
 		// render Content using goldmark
 		var buf bytes.Buffer
-		if err := goldmark.New().Convert([]byte(snippet.Content), &buf); err != nil {
+		if err := goldmark.New(goldmark.WithRendererOptions(
+			html.WithUnsafe(),
+		)).Convert([]byte(snippet.Content), &buf); err != nil {
 			return c.Render("500", fiber.Map{})
 		}
 
+		// apply bluemonday policy to prevent xss
+		sanitized := policy.Sanitize(buf.String())
+
 		return c.Render("snippet", fiber.Map{
-			"Content": buf.String(),
+			"Content": sanitized,
 		})
+	})
+
+	app.Get("/raw/:shortID", func(c *fiber.Ctx) error {
+		shortID := c.Params("shortID")
+		var snippet Snippet
+		if err := db.First(&snippet, "short_id = ?", shortID).Error; err != nil {
+			return c.Render("404", fiber.Map{})
+		}
+		return c.SendString(snippet.Content)
 	})
 
 	app.Post("/create", func(c *fiber.Ctx) error {

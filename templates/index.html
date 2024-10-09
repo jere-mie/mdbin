@@ -2,12 +2,35 @@
 
 {% block content %}
 
+<style>
+    .CodeMirror {
+        height: 50vh;
+    }
+</style>
 
 <h1>mdbin</h1>
 <p>Free and Open Source Markdown Snippet Sharing</p>
+
 <form action="/create" method="post">
     <textarea name="content" id="content"></textarea>
-    <input type="submit" value="Create Snippet">
+    <input role="button" type="submit" value="+ Create Snippet">
 </form>
+
+<script>
+    // Initialize CodeMirror
+    var editor = CodeMirror.fromTextArea(document.getElementById('content'), {
+        mode: 'markdown',
+        theme: 'dracula',
+        lineNumbers: true,
+        lineWrapping: true,
+    });
+
+    // on form submit, if the content is empty, don't submit
+    document.querySelector('form').addEventListener('submit', function(e) {
+        if (editor.getValue() == '') {
+            e.preventDefault();
+        }
+    });
+</script>
 
 {% endblock %}
