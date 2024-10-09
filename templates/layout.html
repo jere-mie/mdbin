@@ -11,9 +11,13 @@
     <meta name="author" content="Jeremie Bornais">
     <meta name="title" content="mdbin - Free and Open Source Markdown Snippet Sharing">
 
+    
     <!-- base styles -->
     <link rel="stylesheet" href="/static/pico.min.css">
 
+    <!-- htmx, mostly just for hx-boost -->
+    <script src="/static/htmx.min.js"></script>
+    
     <!-- codemirror stuff for markdown editor -->
     <link rel="stylesheet" href="/static/codemirror.css">
     <link rel="stylesheet" href="/static/dracula.css">
@@ -25,7 +29,7 @@
     <script src="/static/highlight.min.js"></script>
 </head>
 
-<body class="container">
+<body hx-boost="true" class="container">
     <nav>
         <ul>
             <li><strong><a href="/" class="contrast">mdbin</a></strong></li>
